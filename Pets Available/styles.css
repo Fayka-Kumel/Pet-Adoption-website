@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,100..900&family=Caprasimo&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dosis:wght@200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Lexend+Deca:wght@100..900&family=Michroma&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,100..900&family=Caprasimo&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dosis:wght@200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Lexend+Deca:wght@100..900&family=Michroma&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap");
+
+body {
+  font-family: "Outfit", sans-serif;
+  margin: 0;
+  text-align: center;
+}
+nav,
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Dosis", sans-serif;
+}
+
+nav {
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 10%);
+}
+.nav-link {
+  font-size: 1.1rem;
+  color: black;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.selected {
+  color: #8880ff;
+}
+
+.nav-link:hover {
+  color: #8880ff;
+}
+
+.options:hover .selected {
+  color: black;
+}
+
+.options {
+  gap: 2rem;
+  cursor: pointer;
+}
+
+.volunteer {
+  background-color: #8880ff;
+  border: none;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 1rem;
+}
+
+.volunteer:hover {
+  background-color: hsl(260, 100%, 65%);
+  transform: scale(1.05);
+}
+
+p {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 300;
+  color: #4a5565;
+}
+
+h1 {
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+main {
+  padding: 3rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  margin-top: 3rem;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 
+              0 -4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.card:hover:hover {
+    transform: translateY(-10px);
+}
+
+.pet-description {
+  padding: 1rem;
+}
+
+.pet-text p {
+  margin: 0.7rem 0;
+}
+
+.pet-name {
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+  margin-top: 0;
+}
+
+.meet {
+  width: 100%;
+  background-image: linear-gradient(to right, #c27aff, #9810fa);
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: .9rem;
+  transition: 0.3s ease;
+}
+
+.meet:hover {
+  background-color: hsl(260, 100%, 65%);
+  transform: scale(1.05);
+}
+
+@media (max-width: 1000px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  nav {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .options {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .volunteer {
+    width: 100%;
+  }
+
+  main {
+    padding: 2rem;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .card img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  nav img {
+    width: 60px;
+  }
+
+  .container {
+    gap: 1.5rem;
+  }
+
+  .meet {
+    padding: 0.8rem;
+  }
+}
