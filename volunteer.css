@@ -1,0 +1,376 @@
+#navigation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 2px;
+
+    flex-wrap: wrap;
+    min-height: 80px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
+}
+
+#logo img {
+    width: 50px;
+    height: 40px;
+    
+    
+}
+
+#navmenues li{
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 15px;
+    margin-right: 15px;
+    
+}
+
+#navmenues a{
+    text-decoration: none;
+    color: black;
+    font-family: "Outfit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+#button a {
+    text-decoration: none;
+    color:white;
+    
+}
+
+#button button {
+    background-color: rgb(146,138,255);
+    height: 40px;
+    width: 170px;
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+#first {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+     
+    min-height: 500px;
+    flex-wrap: wrap;
+    
+    background-color: rgb(247, 237, 255); 
+}
+#volunteer-paragraph {
+    max-width: 500px;
+     
+}
+
+
+
+#volunteer-paragraph button {
+    background-color: rgb(146,138,255);
+    height: 40px;
+    width: 250px;
+    border-radius: 20px;
+    border: none;
+    margin-top: 10px;
+}
+
+button a {
+    text-decoration: none;
+    color: white;
+}
+#first-imgs {
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+}
+
+#first img {
+    width: 180px;
+    height: 180px;
+    border-radius: 11px;
+    margin: 8px;
+}
+
+#first p {
+    font-family: "Outfit", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 18px;
+    text-align: left;
+}
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+}
+
+#volunteering-reasons{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    gap: 20px;
+     
+    flex-wrap: wrap;
+}
+
+
+#volunteering-reasons div {
+    max-width: 230px;
+    border-radius: 20px;
+    background-color:rgb(247, 237, 255); 
+    text-align: center;
+}
+
+#volunteering-reasons img {
+    height: 40px;
+    width: 40px;
+}
+#second {
+    margin: 30px;
+}
+#second h1 {
+    text-align: center;
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    
+}
+
+#second p {
+    text-align: center;
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+#second h4 {
+    text-align: center;
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+#third {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(247, 237, 255);
+    min-height: 700px;
+
+}
+#volunteer-opportunities {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     
+    flex-wrap: wrap;
+    max-width: 900px;
+    min-height: 350px;
+    margin: 30px;
+    gap: 20px;
+    
+}
+
+#volunteer-opportunities div {
+    max-width: 230px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+
+}
+
+#volunteer-opportunities img {
+    height: 40px;
+    width: 40px;
+}
+
+#fourth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    text-align: center;
+
+}
+
+#requirements {
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+    max-width: 900px;
+    min-height: 200px;
+    background-color: rgb(247, 237, 255);
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    border-radius: 20px;
+}
+
+#requirements1 {
+    max-width: 350px;
+    padding-left: 3px;
+}
+#requirements2 {
+     
+    max-width: 350px;
+    margin-left: 20px;
+    padding-right: 20px;
+}
+
+#fourth h1,p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#h-and-p {
+    min-height: 100px;
+    padding: 5px;
+}
+
+#requirements ul{
+    list-style-image: url('images/list.png');
+}
+
+#requirements li{
+    
+    margin-bottom: 15px;
+}
+
+#fifth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 1200px;
+    margin-top: 80px;
+    background-color: rgb(247, 237, 255);
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    padding-bottom: 30px;
+
+}
+
+
+#first-part {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 80px;
+    max-width: 900px;
+    min-height: 120px;
+    margin-top: 30px;
+    padding-top: 20px;
+    background-color: white;
+    
+}
+#fifth-form {
+    background-color: white; border-radius: 20px; min-height: 800px; max-width: 900px;padding: 20px; margin-top: 50px;padding-bottom: 50px;
+}
+#first-part input{
+    width: 350px;
+    padding: 8px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+}
+
+#availability {
+    margin-top: 30px;
+}
+#exp-and-reason input {
+    width: 96%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+
+#availability input{
+    width: 96%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-bottom: 20px;   
+}
+#submit {
+    background-color: rgb(146,138,255);
+    width: 100%;
+    padding: 10px;
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: white;
+    font-size:18px;
+    border-radius: 10px;
+
+
+
+}
+#sixth {
+    text-align: center;
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    margin-top: 70px;
+}
+
+#contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    margin: 30px;
+}
+
+.contact-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+#contact img{
+    width: 40px;
+    height: 40px;
+}
+
+
+
+@media (max-width: 700px ){
+    #navigation {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        column-gap: 10px;
+        flex-wrap: wrap;
+        min-height: 80px;
+        border-bottom: 2px solid darkgrey;
+    }
+    ul {
+        padding-inline-start: 10px;
+    }
+    #navmenues li{
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    
+}
+
+}
