@@ -51,7 +51,8 @@ h2{
 
 
 .section-title{
-    font-size: 50px;
+    font-size: 40px;
+    font-weight: 400;
 }
 
 /* Buttons */
@@ -96,6 +97,11 @@ h2{
     color: #ffffff;
     background-color: #8880FF;
     transform: scale(1.05);
+}
+
+.secondary-cta a{
+  text-decoration: none;
+  color: #8880FF;
 }
 
 /* Hero Section */
@@ -380,12 +386,12 @@ footer .cta-container a {
 
   .why-choose-card,.how-adoption-cards {
     grid-template-columns: repeat(2, 1fr);
+    margin: 0;
   }
 
   .stories-cards {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .footer-container {
     grid-template-columns: 1fr 1fr;
   }
