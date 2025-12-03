@@ -81,11 +81,17 @@ nav {
     min-width: 200px;
     max-width: 400px;
     flex: 1;
-    min-height: 200px;
+    min-height: 180px;
     text-align: center;
     background-color: white;
+    padding-top: 20px;
+    transition: transform 0.3s ease;
 }
 
+#about1 div:hover {
+    
+      transform: translateY(-10px);
+}
 #about1 h1 {
     color: rgb(210, 46, 210);
 }
@@ -123,8 +129,12 @@ nav {
     padding: 20px;
     box-shadow: 0 3px 5px rgba(0,0,0,0.3);
     flex : 1 ;
+    transition: transform 0.3s ease;
     
     
+}
+#values-about div:hover{
+      transform: translateY(-10px);
 }
 
 #about-teams {
@@ -146,7 +156,12 @@ nav {
     box-shadow: 0 3px 5px rgba(0,0,0,0.3);
     margin: 40px 0 80px 0;
     padding: 20px;
+    transition: transform 0.3s ease;
 }
+#about-teams div:hover{
+      transform: translateY(-10px);
+}
+
 
 #about-teams img{
     width: 40px;
