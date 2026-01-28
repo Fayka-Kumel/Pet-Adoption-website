@@ -6,7 +6,7 @@ const Footer = () => {
     <footer>
       <div className="footer-container">
         <div className="footer-logo">
-          <img src="public/image/images/Logo.png" alt="Logo" />
+          <img src="/image/images/Logo.png" alt="Logo" />
           <p>
             Pawsome is a dedicated pet adoption platform connecting lovable
             animals with forever homes. Join us in making a difference, one

@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <nav>
       {/* Vite serves images from the public folder directly via / */}
-      <img src="public/image/images/Logo.png" alt="Logo" />
+      <img src="/image/images/Logo.png" alt="Logo" />
 
       <div className="options">
         {/* NavLink automatically handles the "active" class logic */}
