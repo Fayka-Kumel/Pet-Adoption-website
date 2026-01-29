@@ -5,7 +5,7 @@ const Contact = () => {
 
   /* ---------------- NAV LINK HIGHLIGHT ---------------- */
   useEffect(() => {
-    document.querySelectorAll(".nav-link").forEach(link => {
+    document.querySelectorAll(".nav-link").forEach((link) => {
       if (link.pathname === window.location.pathname) {
         link.classList.add("selected");
       }
@@ -32,10 +32,11 @@ const Contact = () => {
   };
 
   /* ---------------- FORM SUBMIT ---------------- */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    document.querySelectorAll(".error-message").forEach(el => el.remove());
+    // Remove old errors
+    document.querySelectorAll(".error-message").forEach((el) => el.remove());
 
     const fname = document.querySelector("#fname");
     const email = document.querySelector("#email");
@@ -72,11 +73,32 @@ const Contact = () => {
       valid = false;
     }
 
-    if (valid) {
-      alert(
-        `✅ Thank you, ${fname.value.trim()}! Your pet visit has been scheduled on ${date.value} at ${time.value}. We’ll contact you at ${email.value.trim()}.`
-      );
-      formRef.current.reset();
+    if (!valid) return;
+
+    try {
+      const res = await fetch("/api/visits", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: fname.value.trim(),
+          email: email.value.trim(),
+          phone: phone.value.trim(),
+          preferredDate: date.value,
+          preferredTime: time.value,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("✅ Visit scheduled successfully!");
+        formRef.current.reset();
+      } else {
+        alert(`❌ ${data.message}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("❌ Server error. Try again later.");
     }
   };
 
@@ -91,14 +113,30 @@ const Contact = () => {
           <h2>Schedule Your Pet Visit</h2>
 
           <form ref={formRef} onSubmit={handleSubmit}>
-            <label htmlFor="fname">First name:</label><br></br>
-            <input id="fname" name="fname" type="text" placeholder="John" /><br></br>
+            <label htmlFor="fname">First name:</label>
+            <br></br>
+            <input id="fname" name="fname" type="text" placeholder="John" />
+            <br></br>
 
-            <label htmlFor="email">Email:</label><br></br>
-            <input id="email" name="email" type="email" placeholder="abc@gmail.com" /><br></br>
+            <label htmlFor="email">Email:</label>
+            <br></br>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="abc@gmail.com"
+            />
+            <br></br>
 
-            <label htmlFor="phone">Phone Number:</label><br></br>
-            <input id="phone" name="phone" type="tel" placeholder="09-12-34-56-78" /><br></br>
+            <label htmlFor="phone">Phone Number:</label>
+            <br></br>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              placeholder="09-12-34-56-78"
+            />
+            <br></br>
 
             <label htmlFor="date">Preferred Date:</label>
             <input
@@ -111,35 +149,52 @@ const Contact = () => {
             <label htmlFor="time">Preferred Time:</label>
             <input id="time" name="time" type="time" />
 
-            <button type="submit" id="submit-button">Submit</button>
+            <button type="submit" id="submit-button">
+              Submit
+            </button>
           </form>
-      </div>
-      {/* Contact Info */}
+        </div>
+        {/* Contact Info */}
         <div id="contact-info">
           <div id="contact-info1">
             <h2>Contact Information</h2>
             <div>
               <img src="image/contact.images/location.png" alt="location" />
               <p>
-                Visit Us <br />123 Pet Adoption Street,<br />Addis Ababa
+                Visit Us <br />
+                123 Pet Adoption Street,
+                <br />
+                Addis Ababa
               </p>
             </div>
             <div>
               <img src="image/contact.images/phone.png" alt="phone" />
               <p>
-                Call Us <br />09-12-34-56-78<br />09-23-45-67-89
+                Call Us <br />
+                09-12-34-56-78
+                <br />
+                09-23-45-67-89
               </p>
             </div>
             <div>
               <img src="image/contact.images/gmail.png" alt="email" />
               <p>
-                Email Us <br />info@Pawsomeadopt.com<br />support@Pawsomeadopt.com
+                Email Us <br />
+                info@Pawsomeadopt.com
+                <br />
+                support@Pawsomeadopt.com
               </p>
             </div>
             <div>
               <img src="image/contact.images/clock.png" alt="hours" />
               <p>
-                Hours<br />Monday-Friday: 2am-6pm<br />Saturday: 10am-4pm<br />Sunday: closed
+                Hours
+                <br />
+                Monday-Friday: 2am-6pm
+                <br />
+                Saturday: 10am-4pm
+                <br />
+                Sunday: closed
               </p>
             </div>
           </div>
@@ -147,16 +202,15 @@ const Contact = () => {
           <div id="emergency">
             <h3>Emergency?</h3>
             <p>
-              If you've found a stray or injured animal, please call our 24/7 emergency hotline:
+              If you've found a stray or injured animal, please call our 24/7
+              emergency hotline:
             </p>
             <p id="emergency-second-p">09-12-34-56-78</p>
           </div>
         </div>
-        </div>
       </div>
-
+    </div>
   );
 };
 
 export default Contact;
-

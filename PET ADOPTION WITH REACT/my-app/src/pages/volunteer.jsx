@@ -4,7 +4,7 @@ const Volunteer = () => {
   // 1. Scroll to top on load and set Nav highlight
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.querySelectorAll(".nav-link").forEach(link => {
+    document.querySelectorAll(".nav-link").forEach((link) => {
       if (link.pathname === window.location.pathname) {
         link.classList.add("selected");
       }
@@ -20,7 +20,7 @@ const Volunteer = () => {
     availabilities: "",
     experience: "",
     reason: "",
-    interests: [] // Array to hold selected checkboxes
+    interests: [], // Array to hold selected checkboxes
   });
 
   const [errors, setErrors] = useState({});
@@ -49,28 +49,65 @@ const Volunteer = () => {
     let tempErrors = {};
     if (!formData.fname.trim()) tempErrors.fname = "First name is required.";
     if (!formData.lname.trim()) tempErrors.lname = "Last name is required.";
-    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(formData.email)) tempErrors.email = "Enter a valid email.";
-    if (!/^09-\d{2}-\d{2}-\d{2}-\d{2}$/.test(formData.phone)) tempErrors.phone = "Format: 09-12-34-56-78.";
-    if (!formData.availabilities.trim()) tempErrors.availabilities = "Please specify availability.";
-    if (formData.interests.length === 0) tempErrors.interests = "Select at least one area of interest.";
-    if (!formData.experience.trim()) tempErrors.experience = "Mention experience or write 'None'.";
-    if (!formData.reason.trim()) tempErrors.reason = "Please tell us why you want to volunteer.";
+    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(formData.email))
+      tempErrors.email = "Enter a valid email.";
+    if (!/^09-\d{2}-\d{2}-\d{2}-\d{2}$/.test(formData.phone))
+      tempErrors.phone = "Format: 09-12-34-56-78.";
+    if (!formData.availabilities.trim())
+      tempErrors.availabilities = "Please specify availability.";
+    if (formData.interests.length === 0)
+      tempErrors.interests = "Select at least one area of interest.";
+    if (!formData.experience.trim())
+      tempErrors.experience = "Mention experience or write 'None'.";
+    if (!formData.reason.trim())
+      tempErrors.reason = "Please tell us why you want to volunteer.";
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert("🎉 Thank you for applying to volunteer! We’ll get back to you soon.");
-      // Reset form
-      setFormData({
-        fname: "", lname: "", email: "", phone: "",
-        availabilities: "", experience: "", reason: "", interests: []
+    if (!validate()) return;
+
+    try {
+      const res = await fetch("/api/volunteers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.fname,
+          lastName: formData.lname,
+          email: formData.email,
+          phone: formData.phone,
+          availability: formData.availabilities,
+          areaOfInterest: formData.interests.join(", "), // send as comma-separated string
+          experience: formData.experience,
+          motivation: formData.reason,
+        }),
       });
-      setErrors({});
-      e.target.reset();
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("🎉 Volunteer application submitted!");
+        setFormData({
+          fname: "",
+          lname: "",
+          email: "",
+          phone: "",
+          availabilities: "",
+          experience: "",
+          reason: "",
+          interests: [],
+        });
+        setErrors({});
+        e.target.reset();
+      } else {
+        alert(`❌ ${data.message}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("❌ Server error. Try again later.");
     }
   };
 
@@ -79,10 +116,21 @@ const Volunteer = () => {
       <div id="first">
         <div id="volunteer-paragraph">
           <h2 style={{ fontSize: "50px" }}>
-            Become a <span style={{ color: "rgb(146,138,255)" }}>volunteer</span>
+            Become a{" "}
+            <span style={{ color: "rgb(146,138,255)" }}>volunteer</span>
           </h2>
-          <p>Join our passionate team of volunteers and make a difference in the lives of pets. Whether you have a few hours a week or want a more involved role, we have opportunities for everyone!</p>
-          <button onClick={() => document.getElementById('fifth-form').scrollIntoView({ behavior: 'smooth' })}>
+          <p>
+            Join our passionate team of volunteers and make a difference in the
+            lives of pets. Whether you have a few hours a week or want a more
+            involved role, we have opportunities for everyone!
+          </p>
+          <button
+            onClick={() =>
+              document
+                .getElementById("fifth-form")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+          >
             Apply Now
           </button>
         </div>
@@ -127,12 +175,36 @@ const Volunteer = () => {
         <p>Find the perfect role that matches your interest and role</p>
         <div id="volunteer-opportunities">
           {[
-            { img: "heart.png", title: "Pet Caretaker", desc: "Help with daily care, feeding, and playtime." },
-            { img: "paw.png", title: "Dog Walker", desc: "Take our energetic dogs for walks and outdoor activities." },
-            { img: "event.png", title: "Event Coordinator", desc: "Assist in organizing adoption events and fundraisers." },
-            { img: "house.png", title: "Foster Parent", desc: "Provide temporary homes for pets awaiting adoption." },
-            { img: "group.png", title: "Social Media Helper", desc: "Help showcase our pets online." },
-            { img: "experience.png", title: "Administrative Support", desc: "Assist with paperwork, scheduling, and office tasks." },
+            {
+              img: "heart.png",
+              title: "Pet Caretaker",
+              desc: "Help with daily care, feeding, and playtime.",
+            },
+            {
+              img: "paw.png",
+              title: "Dog Walker",
+              desc: "Take our energetic dogs for walks and outdoor activities.",
+            },
+            {
+              img: "event.png",
+              title: "Event Coordinator",
+              desc: "Assist in organizing adoption events and fundraisers.",
+            },
+            {
+              img: "house.png",
+              title: "Foster Parent",
+              desc: "Provide temporary homes for pets awaiting adoption.",
+            },
+            {
+              img: "group.png",
+              title: "Social Media Helper",
+              desc: "Help showcase our pets online.",
+            },
+            {
+              img: "experience.png",
+              title: "Administrative Support",
+              desc: "Assist with paperwork, scheduling, and office tasks.",
+            },
           ].map((op, index) => (
             <div key={index}>
               <img src={`image/volunteer images/${op.img}`} alt={op.title} />
@@ -175,78 +247,234 @@ const Volunteer = () => {
           <form onSubmit={handleSubmit}>
             <div id="first-part">
               <div id="name">
-                <label htmlFor="fname">First name:</label><br />
-                <input type="text" id="fname" name="fname" placeholder="John" onChange={handleInputChange} />
-                {errors.fname && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.fname}</small>}
-                
-                <br /><label htmlFor="email">Email:</label><br />
-                <input type="email" id="email" name="email" placeholder="abc@gmail.com" onChange={handleInputChange} />
-                {errors.email && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.email}</small>}
+                <label htmlFor="fname">First name:</label>
+                <br />
+                <input
+                  type="text"
+                  id="fname"
+                  name="fname"
+                  placeholder="John"
+                  onChange={handleInputChange}
+                />
+                {errors.fname && (
+                  <small
+                    className="error-message"
+                    style={{ color: "red", display: "block" }}
+                  >
+                    {errors.fname}
+                  </small>
+                )}
+
+                <br />
+                <label htmlFor="email">Email:</label>
+                <br />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="abc@gmail.com"
+                  onChange={handleInputChange}
+                />
+                {errors.email && (
+                  <small
+                    className="error-message"
+                    style={{ color: "red", display: "block" }}
+                  >
+                    {errors.email}
+                  </small>
+                )}
               </div>
 
               <div id="email&phone">
-                <label htmlFor="lname">Last name:</label><br />
-                <input type="text" id="lname" name="lname" placeholder="Doe" onChange={handleInputChange} />
-                {errors.lname && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.lname}</small>}
-                
-                <br /><label htmlFor="phone">Phone Number:</label><br />
-                <input type="tel" id="phone" name="phone" placeholder="09-12-34-56-78" onChange={handleInputChange} />
-                {errors.phone && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.phone}</small>}
+                <label htmlFor="lname">Last name:</label>
+                <br />
+                <input
+                  type="text"
+                  id="lname"
+                  name="lname"
+                  placeholder="Doe"
+                  onChange={handleInputChange}
+                />
+                {errors.lname && (
+                  <small
+                    className="error-message"
+                    style={{ color: "red", display: "block" }}
+                  >
+                    {errors.lname}
+                  </small>
+                )}
+
+                <br />
+                <label htmlFor="phone">Phone Number:</label>
+                <br />
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="09-12-34-56-78"
+                  onChange={handleInputChange}
+                />
+                {errors.phone && (
+                  <small
+                    className="error-message"
+                    style={{ color: "red", display: "block" }}
+                  >
+                    {errors.phone}
+                  </small>
+                )}
               </div>
             </div>
 
             <div id="availability">
-              <br /><label htmlFor="availabilities">Availability:</label><br />
-              <input type="text" id="availabilities" name="availabilities" placeholder="eg: Two times a week" onChange={handleInputChange} />
-              {errors.availabilities && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.availabilities}</small>}
+              <br />
+              <label htmlFor="availabilities">Availability:</label>
+              <br />
+              <input
+                type="text"
+                id="availabilities"
+                name="availabilities"
+                placeholder="eg: Two times a week"
+                onChange={handleInputChange}
+              />
+              {errors.availabilities && (
+                <small
+                  className="error-message"
+                  style={{ color: "red", display: "block" }}
+                >
+                  {errors.availabilities}
+                </small>
+              )}
             </div>
 
             <p style={{ marginTop: "20px" }}>Areas of Interest:</p>
             <div id="area-of-interest" style={{ marginLeft: "30px" }}>
               {[
                 { id: "option1", val: "Caretaker", label: "Pet Caretaker" },
-                { id: "option2", val: "eventcoordinator", label: "Event Coordinator" },
+                {
+                  id: "option2",
+                  val: "eventcoordinator",
+                  label: "Event Coordinator",
+                },
                 { id: "option3", val: "socialmedia", label: "Social Media" },
                 { id: "option4", val: "Dogwalker", label: "Dog Walker" },
                 { id: "option5", val: "Fosterparent", label: "Foster Parent" },
-                { id: "option6", val: "Adminstrativesupport", label: "Administrative Support" },
-              ].map(opt => (
+                {
+                  id: "option6",
+                  val: "Adminstrativesupport",
+                  label: "Administrative Support",
+                },
+              ].map((opt) => (
                 <div key={opt.id} style={{ marginBottom: "10px" }}>
-                  <input type="checkbox" id={opt.id} name="interests" value={opt.val} onChange={handleCheckboxChange} />
+                  <input
+                    type="checkbox"
+                    id={opt.id}
+                    name="interests"
+                    value={opt.val}
+                    onChange={handleCheckboxChange}
+                  />
                   <label htmlFor={opt.id}> {opt.label}</label>
                 </div>
               ))}
-              {errors.interests && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.interests}</small>}
+              {errors.interests && (
+                <small
+                  className="error-message"
+                  style={{ color: "red", display: "block" }}
+                >
+                  {errors.interests}
+                </small>
+              )}
             </div>
 
             <div id="exp-and-reason">
-              <br /><label htmlFor="experience">Previous Experience with Animals:</label><br />
-              <input type="text" id="experience" name="experience" placeholder="Mention previous experience" onChange={handleInputChange} />
-              {errors.experience && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.experience}</small>}
+              <br />
+              <label htmlFor="experience">
+                Previous Experience with Animals:
+              </label>
+              <br />
+              <input
+                type="text"
+                id="experience"
+                name="experience"
+                placeholder="Mention previous experience"
+                onChange={handleInputChange}
+              />
+              {errors.experience && (
+                <small
+                  className="error-message"
+                  style={{ color: "red", display: "block" }}
+                >
+                  {errors.experience}
+                </small>
+              )}
 
-              <br /><label htmlFor="reason">Why Do You Want To Volunteer:</label><br />
-              <input type="text" id="reason" name="reason" placeholder="Tell us about your passion" onChange={handleInputChange} />
-              {errors.reason && <small className="error-message" style={{ color: "red", display: "block" }}>{errors.reason}</small>}
+              <br />
+              <label htmlFor="reason">Why Do You Want To Volunteer:</label>
+              <br />
+              <input
+                type="text"
+                id="reason"
+                name="reason"
+                placeholder="Tell us about your passion"
+                onChange={handleInputChange}
+              />
+              {errors.reason && (
+                <small
+                  className="error-message"
+                  style={{ color: "red", display: "block" }}
+                >
+                  {errors.reason}
+                </small>
+              )}
             </div>
 
-            <input type="submit" id="submit" value="Submit" style={{ marginTop: "20px" }} />
+            <input
+              type="submit"
+              id="submit"
+              value="Submit"
+              style={{ marginTop: "20px" }}
+            />
           </form>
         </div>
       </div>
 
       <div id="sixth">
         <h2>Have Questions?</h2>
-        <p>Our volunteer coordinator is here to help answer any questions you may have.</p>
+        <p>
+          Our volunteer coordinator is here to help answer any questions you may
+          have.
+        </p>
       </div>
 
-      <div id="contact" style={{ display: "flex", justifyContent: "center", gap: "50px", paddingBottom: "50px" }}>
-        <div className="contact-item" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div
+        id="contact"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "50px",
+          paddingBottom: "50px",
+        }}
+      >
+        <div
+          className="contact-item"
+          style={{ display: "flex", alignItems: "center", gap: "10px" }}
+        >
           <img src="image/volunteer images/gmail.png" alt="email" width="40" />
-          <p>Email<br />pawsome@gmail.com</p>
+          <p>
+            Email
+            <br />
+            pawsome@gmail.com
+          </p>
         </div>
-        <div className="contact-item" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div
+          className="contact-item"
+          style={{ display: "flex", alignItems: "center", gap: "10px" }}
+        >
           <img src="image/volunteer images/phone.png" alt="phone" width="40" />
-          <p>Phone<br />+2519-12-34-57-89</p>
+          <p>
+            Phone
+            <br />
+            +2519-12-34-57-89
+          </p>
         </div>
       </div>
     </div>
