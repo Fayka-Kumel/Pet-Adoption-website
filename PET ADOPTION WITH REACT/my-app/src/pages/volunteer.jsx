@@ -89,7 +89,7 @@ const Volunteer = () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert("🎉 Volunteer application submitted!");
+        alert("Volunteer application submitted!");
         setFormData({
           fname: "",
           lname: "",
@@ -103,11 +103,11 @@ const Volunteer = () => {
         setErrors({});
         e.target.reset();
       } else {
-        alert(`❌ ${data.message}`);
+        alert(`${data.message}`);
       }
     } catch (err) {
       console.error(err);
-      alert("❌ Server error. Try again later.");
+      alert("Server error. Try again later.");
     }
   };
 

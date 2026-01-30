@@ -91,14 +91,14 @@ const Contact = () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert("✅ Visit scheduled successfully!");
+        alert("Visit scheduled successfully!");
         formRef.current.reset();
       } else {
-        alert(`❌ ${data.message}`);
+        alert(`${data.message}`);
       }
     } catch (err) {
       console.error(err);
-      alert("❌ Server error. Try again later.");
+      alert("Server error. Try again later.");
     }
   };
 
